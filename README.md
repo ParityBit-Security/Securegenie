@@ -18,30 +18,9 @@ SecureGenie automates the creation of security policies, compliance analysis, an
 - Backend: Node.js, Express, TypeScript
 - AI: OpenAI GPT-4o Mini
 
-## Setup
+## Live App
 
-### Backend
-```bash
-cd backend
-npm install
-cp .env.example .env
-# Add your OpenAI API key to .env
-npm run dev
-```
-
-### Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-## Environment Variables
-
-Backend requires:
-- `OPENAI_API_KEY`: Your OpenAI API key
-- `PORT`: Server port (default: 5001)
-- `FRONTEND_URL`: Frontend URL for CORS
+Visit: https://securegenie.vercel.app
 
 ## License
 

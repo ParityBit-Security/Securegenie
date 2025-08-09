@@ -60,3 +60,10 @@ Thumbs.db
 # Temporary folders
 tmp/
 temp/
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
