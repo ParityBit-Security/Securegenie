@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { API_BASE_URL } from "@/lib/config";
 import Link from "next/link";
 
 export default function PolicyGenerator() {
@@ -40,7 +41,7 @@ export default function PolicyGenerator() {
     }, 500);
 
     try {
-      const response = await fetch("http://localhost:5001/api/generate-policy", {
+      const response = await fetch(`${API_BASE_URL}/api/generate-policy`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

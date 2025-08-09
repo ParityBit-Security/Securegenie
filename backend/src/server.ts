@@ -19,7 +19,11 @@ const openai = new OpenAI({
 // Middleware
 app.use(helmet());
 app.use(cors({
-  origin: process.env.FRONTEND_URL || ['http://localhost:3000', 'http://localhost:3001'],
+  origin: process.env.FRONTEND_URL || [
+    'http://localhost:3000', 
+    'http://localhost:3001',
+    'https://securegenie.vercel.app'
+  ],
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
@@ -201,6 +205,12 @@ app.use((error: Error, req: express.Request, res: express.Response, next: expres
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`SecureGenie backend running on port ${PORT}`);
-});
+// For Vercel deployment
+export default app;
+
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`SecureGenie backend running on port ${PORT}`);
+  });
+}
