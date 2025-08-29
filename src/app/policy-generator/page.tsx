@@ -128,7 +128,7 @@ export default function PolicyGenerator() {
                     required
                     value={formData.companyName}
                     onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                    placeholder="Enter your company name"
+                    placeholder="e.g., TechCorp Solutions, HealthCare Plus, FinanceSecure Inc."
                   />
                 </div>
 
@@ -140,7 +140,7 @@ export default function PolicyGenerator() {
                     onValueChange={(value) => setFormData({ ...formData, industry: value })}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Select your industry" />
+                      <SelectValue placeholder="Choose your industry (e.g., Technology, Healthcare, Finance)" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="technology">Technology</SelectItem>
@@ -164,7 +164,7 @@ export default function PolicyGenerator() {
                     onValueChange={(value) => setFormData({ ...formData, size: value })}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Select company size" />
+                      <SelectValue placeholder="Choose your company size (affects policy complexity)" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="1-10">1-10 employees</SelectItem>
@@ -182,8 +182,8 @@ export default function PolicyGenerator() {
                     id="specificRequirements"
                     value={formData.specificRequirements}
                     onChange={(e) => setFormData({ ...formData, specificRequirements: e.target.value })}
-                    placeholder="Any specific compliance requirements, industry standards, or security concerns..."
-                    rows={4}
+                    placeholder="Examples:&#10;• PCI DSS compliance for payment processing&#10;• HIPAA compliance for healthcare data&#10;• Remote work and BYOD device policies&#10;• Cloud infrastructure security (AWS, Azure, GCP)&#10;• SOX compliance for financial reporting&#10;• Multi-factor authentication requirements&#10;• Data retention and backup policies"
+                    rows={6}
                   />
                 </div>
 

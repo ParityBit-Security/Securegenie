@@ -4,16 +4,16 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
-import { OpenAI } from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-// Initialize OpenAI
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "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",
+// Initialize Anthropic Claude
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
 // Middleware
@@ -71,23 +71,20 @@ Create a professional, actionable security policy covering:
 
 Format as a structured document with clear sections and actionable guidelines.`;
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+    const completion = await anthropic.messages.create({
+      model: "claude-3-5-sonnet-20241022",
+      max_tokens: 4000,
+      temperature: 0.7,
+      system: "You are a cybersecurity expert specializing in creating comprehensive security policies for organizations. Generate professional, compliance-ready security policies that are detailed, actionable, and industry-specific.",
       messages: [
-        {
-          role: "system",
-          content: "You are a cybersecurity expert specializing in creating comprehensive security policies for organizations. Generate professional, compliance-ready security policies."
-        },
         {
           role: "user",
           content: prompt
         }
       ],
-      max_tokens: 2000,
-      temperature: 0.7,
     });
 
-    const policy = completion.choices[0].message.content;
+    const policy = completion.content[0].type === 'text' ? completion.content[0].text : 'Failed to generate policy';
     res.json({ success: true, policy });
 
   } catch (error) {
@@ -119,23 +116,20 @@ Provide:
 
 Be specific and actionable in recommendations.`;
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+    const completion = await anthropic.messages.create({
+      model: "claude-3-5-sonnet-20241022",
+      max_tokens: 4000,
+      temperature: 0.3,
+      system: "You are a compliance expert with deep knowledge of regulatory frameworks including GDPR, SOX, HIPAA, ISO 27001, PCI DSS, and industry-specific regulations. Provide detailed, actionable compliance analysis with specific remediation steps.",
       messages: [
-        {
-          role: "system",
-          content: "You are a compliance expert with deep knowledge of regulatory frameworks including GDPR, SOX, HIPAA, ISO 27001, PCI DSS, and industry-specific regulations."
-        },
         {
           role: "user",
           content: prompt
         }
       ],
-      max_tokens: 2000,
-      temperature: 0.3,
     });
 
-    const analysis = completion.choices[0].message.content;
+    const analysis = completion.content[0].type === 'text' ? completion.content[0].text : 'Failed to generate analysis';
     res.json({ success: true, analysis });
 
   } catch (error) {
@@ -168,23 +162,20 @@ Provide:
 
 Format responses clearly for each question.`;
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+    const completion = await anthropic.messages.create({
+      model: "claude-3-5-sonnet-20241022",
+      max_tokens: 4000,
+      temperature: 0.2,
+      system: "You are a security consultant expert at filling out vendor security questionnaires and RFPs. Provide accurate, professional responses based on the company information provided. Be thorough and precise in your answers.",
       messages: [
-        {
-          role: "system",
-          content: "You are a security consultant expert at filling out vendor security questionnaires and RFPs. Provide accurate, professional responses based on the company information provided."
-        },
         {
           role: "user",
           content: prompt
         }
       ],
-      max_tokens: 2000,
-      temperature: 0.2,
     });
 
-    const responses = completion.choices[0].message.content;
+    const responses = completion.content[0].type === 'text' ? completion.content[0].text : 'Failed to generate responses';
     res.json({ success: true, responses });
 
   } catch (error) {
