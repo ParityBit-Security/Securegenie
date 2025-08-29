@@ -22,7 +22,8 @@ app.use(cors({
   origin: process.env.FRONTEND_URL || [
     'http://localhost:3000', 
     'http://localhost:3001',
-    'https://securegenie.vercel.app'
+    'https://securegenie-gh6xyupp0-yaakulyas-projects.vercel.app',
+    'https://*.vercel.app'
   ],
   credentials: true
 }));
