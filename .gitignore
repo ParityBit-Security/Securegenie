@@ -44,6 +44,8 @@ logs
 .yarn-integrity
 
 # dotenv environment variables file (included for deployment)
+.env
+backend/.env
 
 # MacOS
 .DS_Store
